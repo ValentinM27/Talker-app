@@ -58,11 +58,4 @@ class AuthController extends Controller
 
         return response('token destroyed');
     }
-
-    public function getUser()
-    {
-        $id = Auth::user()->id;
-
-        return User::where('id', $id)->get();
-    }
 }
