@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->uuid('id')->unique();
             $table->string('label', 30);
+
             $table->timestamps();
         });
 
@@ -27,30 +28,34 @@ return new class extends Migration
             $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
 
             $table->unique(['id_category', 'id_user']);
+
+            $table->timestamps();
         });
 
         Schema::create('posts', function (Blueprint $table) {
             $table->uuid('id')->unique();
             $table->string('content', 255);
-            $table->timestamps();
 
             $table->uuid('id_category');
             $table->uuid('id_user');
 
             $table->foreign('id_category')->references('id')->on('categories')->onDelete('cascade');
             $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
+
+            $table->timestamps();
         });
 
         Schema::create('comments', function (Blueprint $table) {
             $table->uuid('id')->unique();
             $table->string('content', 255);
-            $table->timestamps();
 
             $table->uuid('id_post');
             $table->uuid('id_user');
 
             $table->foreign('id_post')->references('id')->on('posts')->onDelete('cascade');
             $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
+
+            $table->timestamps();
         });
     }
 };
