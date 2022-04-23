@@ -19,11 +19,16 @@ use Illuminate\Support\Facades\Route;
 // POST /api/auth/register : Permet de créér un compte
 Route::post('/auth/register', [AuthController::class, 'register']);
 
+// POST /api/auth/login : Permet de se connecter
 Route::post('/auth/login', [AuthController::class, 'login']);
 
 /**
  * Contient toutes les routes authentifiées
  */
 Route::middleware('auth:sanctum')->group(function() {
+    // POST /api/auth/logout : Permet de se déconnecter
+    Route::post('/auth/logout', [AuthController::class, 'logout']);
 
+    // GET /api/user : Permet de récupérer les données de l'utilisateur
+    Route::get('user', [AuthController::class, 'getUser']);
 });
