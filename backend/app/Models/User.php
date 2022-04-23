@@ -8,12 +8,16 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 /**
  * Class User
  * 
- * @property string $id
+ * @property int $id
+ * @property string $id_user
  * @property string $name
  * @property string $email
  * @property Carbon|null $email_verified_at
@@ -28,10 +32,11 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @package App\Models
  */
-class User extends Model
+class User extends Authenticatable
 {
+	use HasApiTokens, HasFactory, Notifiable;
+
 	protected $table = 'users';
-	public $incrementing = false;
 
 	protected $dates = [
 		'email_verified_at'
@@ -43,6 +48,7 @@ class User extends Model
 	];
 
 	protected $fillable = [
+		'id_user',
 		'name',
 		'email',
 		'email_verified_at',
@@ -52,16 +58,16 @@ class User extends Model
 
 	public function comments()
 	{
-		return $this->hasMany(Comment::class, 'id_user');
+		return $this->hasMany(Comment::class, 'id_user', 'id_user');
 	}
 
 	public function posts()
 	{
-		return $this->hasMany(Post::class, 'id_user');
+		return $this->hasMany(Post::class, 'id_user', 'id_user');
 	}
 
 	public function suscribes()
 	{
-		return $this->hasMany(Suscribe::class, 'id_user');
+		return $this->hasMany(Suscribe::class, 'id_user', 'id_user');
 	}
 }

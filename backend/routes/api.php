@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +16,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+// POST /api/auth/register : Permet de créér un compte
+Route::post('/auth/register', [AuthController::class, 'register']);
+
+Route::post('/auth/login', [AuthController::class, 'login']);
+
+/**
+ * Contient toutes les routes authentifiées
+ */
+Route::middleware('auth:sanctum')->group(function() {
+
 });

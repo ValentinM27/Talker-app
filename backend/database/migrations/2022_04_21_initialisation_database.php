@@ -13,6 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
+
+        Schema::create('users', function (Blueprint $table) {
+            $table->id();
+            $table->uuid('id_user')->unique();
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
+            $table->rememberToken();
+            $table->timestamps();
+        });
+
         Schema::create('categories', function (Blueprint $table) {
             $table->uuid('id')->unique();
             $table->string('label', 30);
@@ -25,7 +37,7 @@ return new class extends Migration
             $table->uuid('id_user');
 
             $table->foreign('id_category')->references('id')->on('categories')->onDelete('cascade');
-            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('id_user')->references('id_user')->on('users')->onDelete('cascade');
 
             $table->unique(['id_category', 'id_user']);
 
@@ -40,7 +52,7 @@ return new class extends Migration
             $table->uuid('id_user');
 
             $table->foreign('id_category')->references('id')->on('categories')->onDelete('cascade');
-            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('id_user')->references('id_user')->on('users')->onDelete('cascade');
 
             $table->timestamps();
         });
@@ -53,7 +65,7 @@ return new class extends Migration
             $table->uuid('id_user');
 
             $table->foreign('id_post')->references('id')->on('posts')->onDelete('cascade');
-            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('id_user')->references('id_user')->on('users')->onDelete('cascade');
 
             $table->timestamps();
         });
