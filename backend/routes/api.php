@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,6 +61,16 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::post('/category', [CategoriesController::class, 'createCategory']);
     // GET /api/category : Permet de récupérer les catégories
     Route::get('/category', [CategoriesController::class, 'getCategories']);
-    // GET /api/category/{$idCategory}
+    // GET /api/category/{idCategory}
     Route::get('/category/{idCategory}', [CategoriesController::class, 'getPostsbyCategory']);
+
+    /*
+    |--------------------------------------------------------------------------
+    | Post controller
+    |--------------------------------------------------------------------------
+    */
+    // POST /api/post : Permet de créer un post
+    Route::post('/post', [PostController::class, 'createPost']);
+    // DELETE /api/post/{post} : Permet de supprimer un post
+    Route::delete('/post/{post}', [PostController::class, 'deletePost']);
 });

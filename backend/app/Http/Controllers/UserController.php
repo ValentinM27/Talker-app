@@ -22,4 +22,9 @@ class UserController extends Controller
 
         return 'Utilisateur supprimé';
     }
+
+    public function getUserUUID()
+    {
+        return User::where('id', Auth::user()->id)->pluck('id_user')->first();
+    }
 }

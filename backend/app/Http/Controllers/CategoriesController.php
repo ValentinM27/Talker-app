@@ -22,11 +22,11 @@ class CategoriesController extends Controller
             ], 403);
         }
 
-        $date = $validate->getData();
-        $date['id'] = Str::uuid();
+        $data = $validate->getData();
+        $data['id'] = Str::uuid();
 
         $category = new Category();
-        $category->fill($date);
+        $category->fill($data);
         $category->id = Str::uuid();
         $category->save();
 
