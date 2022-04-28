@@ -12,17 +12,10 @@ class CategoriesController extends Controller
 {
     public function createCategory(Request $request)
     {
-        $validate = Validator::make($request->all(), [
+        $data = $request->validate([
             'label' => 'string|required|unique:categories,label'
         ]);
 
-        if($validate->fails()){
-            return response()->json([
-                $validate->errors()->all()
-            ], 403);
-        }
-
-        $data = $validate->getData();
         $data['id'] = Str::uuid();
 
         $category = new Category();

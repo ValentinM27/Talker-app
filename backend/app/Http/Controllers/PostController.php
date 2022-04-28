@@ -20,18 +20,11 @@ class PostController extends Controller
 
     public function createPost(Request $request)
     {
-        $validate = Validator::make($request->all(), [
+        $data = $request->validate([
             'content' => 'string|required',
             'id_category' => 'string|required|exists:categories,id'
         ]);
 
-        if($validate->fails()){
-            return response()->json([
-                $validate->errors()->all()
-            ], 403);
-        }
-
-        $data = $validate->getData();
         $data['id_user'] = $this->user->getUserUUID();
 
         $post = new Post();

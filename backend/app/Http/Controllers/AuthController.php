@@ -13,26 +13,19 @@ class AuthController extends Controller
 {
     public function register(Request $request)
     {
-        $validate = Validator::make($request->all(),[
+        $data = $request->request([
             'name'=>'required|string|max:20',
             'email'=>'required|string|email|unique:users,email',
             'password'=>'required|string|min:8|confirmed'
         ]);
 
-        if($validate->fails()){
-            return response()->json([
-                $validate->errors()->all()
-            ], 403);
-        }
-
         /**
          * Gestion UUID et Hash mot de passe
          */
-        $validate = $validate->getData();
-        $validate['id_user'] = Str::uuid();
-        $validate['password'] = Hash::make($validate['password']);
+        $data['id_user'] = Str::uuid();
+        $data['password'] = Hash::make($data['password']);
 
-        $user = User::create($validate);
+        $user = User::create($data);
 
         $token = $user->createToken('BearerToken')->plainTextToken;
 
