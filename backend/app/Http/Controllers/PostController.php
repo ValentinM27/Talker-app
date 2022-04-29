@@ -3,15 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Http\Controllers\UserController;
 
 class PostController extends Controller
 {
-    protected $user;
+    private $user;
 
     public function __construct()
     {
@@ -37,12 +35,11 @@ class PostController extends Controller
 
     public function deletePost(Post $post)
     {
-        $userUUID = $this->user->getUserUUID();
+        return $post->delete();
+    }
 
-        if($post->id_user === $userUUID) {
-            return $post->delete();
-        }
-
-        return response("Vous n'êtes pas le créateur de ce post", 403);
+    public function getById(Post $post)
+    {
+        return $post;
     }
 }

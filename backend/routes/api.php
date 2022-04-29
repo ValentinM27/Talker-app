@@ -8,6 +8,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,4 +74,18 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::post('/post', [PostController::class, 'createPost']);
     // DELETE /api/post/{post} : Permet de supprimer un post
     Route::delete('/post/{post}', [PostController::class, 'deletePost']);
+    // GET /api/post/{post} : Permet de récupérer un post grâce son id
+    Route::get('/post/{post}', [PostController::class, 'getById']);
+
+    /*
+    |--------------------------------------------------------------------------
+    | Comment controller
+    |--------------------------------------------------------------------------
+    */
+    // POST /api/comment : Permet de créer un commentaire
+    Route::post('/comment/{post}', [CommentController::class, 'createComment']);
+    // DELETE /api/comment : Permet de supprimer un commentaire
+    Route::delete('/comment/{comment}', [CommentController::class, 'deleteComment']);
+    // GET /api/comment : Permet de récupérer les commentaires d'un grâce à son id
+    Route::get('/comment/{post}', [CommentController::class, 'getByPostId']);
 });
