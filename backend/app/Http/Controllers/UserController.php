@@ -17,9 +17,7 @@ class UserController extends Controller
     public function deleteUser()
     {
         Auth::user()->tokens()->delete();
-        User::where('id', Auth::user()->id)->delete();
-
-        return 'Utilisateur supprimé';
+        return User::where('id', Auth::user()->id)->delete();
     }
 
     public function getUserUUID()
