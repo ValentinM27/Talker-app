@@ -1,0 +1,41 @@
+version: '3'
+networks:
+  talkerApp:
+    driver: bridge
+    name: 'talkerApp'
+services:
+    backend:
+      build:
+        context: ./backend
+        dockerfile: Dockerfile
+      ports:
+        - 8000:8000
+      volumes:
+        - ./backend:/app/backend
+      depends_on:
+        - db
+      networks:
+        - talkerApp
+    frontend:
+      build:
+        context: ./frontend
+        dockerfile: Dockerfile
+      tty: true
+      ports:
+        - 3000:3000
+      volumes:
+        - ./frontend:/app/backend
+      depends_on:
+        - backend
+      networks:
+        - talkerApp
+    db:
+      image: arm64v8/mysql:oracle
+      restart: unless-stopped
+      environment:
+        MYSQL_ROOT_PASSWORD: f2-N+grA4qJ3%b2y
+        MYSQL_DATABASE: 'talkerApp'
+      ports:
+        - 3306:3306
+      networks:
+        - talkerApp
