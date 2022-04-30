@@ -14,7 +14,7 @@ destroy:
 	docker system prune -a
 
 migrate-install:
-	cd backend && php artisan migrate:install
+	cd backend && docker-compose exec backend php artisan migrate:install
 
 migrate:
-	cd backend && php artisan migrate
+	cd backend && docker-compose exec backend php artisan migrate
