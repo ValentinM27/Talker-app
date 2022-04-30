@@ -4,7 +4,7 @@ et suivre des sujets de discussions dans lesquels ils peuvent poster et
 répondre aux autres via des commentaires
 
 ## Installation
-### Mise en place des containaires docker
+### Mise en place des container docker
 ```make up```
 
 ### Migration
