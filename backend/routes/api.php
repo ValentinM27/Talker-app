@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\SuscribeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -88,4 +89,16 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::delete('/comment/{comment}', [CommentController::class, 'deleteComment'])->middleware('can:delete,comment');
     // GET /api/comment : Permet de récupérer les commentaires d'un grâce à son id
     Route::get('/comment/{post}', [CommentController::class, 'getByPostId']);
+
+    /*
+    |--------------------------------------------------------------------------
+    | Suscribe controller
+    |--------------------------------------------------------------------------
+    */
+    // POST /api/suscribe/idCategory : Permet de s'abonner à une catégorie
+    Route::post('/suscribe/{category}', [SuscribeController::class, 'suscribe']);
+    // DELETE /api/suscribe : Permet de se désabonner d'une catégorie
+    Route::delete('/suscribe/{category}', [SuscribeController::class, 'unSuscribe']);
+    // GET /api/suscribes : Permet de récupérer les abonnement d'un utilisateur
+    Route::get('/suscribes', [SuscribeController::class, 'suscribeTo']);
 });
