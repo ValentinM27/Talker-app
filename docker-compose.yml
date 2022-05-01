@@ -8,11 +8,13 @@ services:
       ports:
         - 8000:8000
       volumes:
-        - ./backend:/app/backend
+        - ./backend:/usr/src/backend
       depends_on:
         - db
       networks:
         - talkerApp
+      environment:
+        CHOKIDAR_USEPOLLING: true
     frontend:
       build:
         context: ./frontend
@@ -21,11 +23,13 @@ services:
       ports:
         - 50000:3000
       volumes:
-        - ./frontend:/app/backend
+        - ./frontend:/usr/src/frontend
       depends_on:
         - backend
       networks:
         - talkerApp
+      environment:
+        CHOKIDAR_USEPOLLING: true
     db:
       image: arm64v8/mysql:oracle
       restart: unless-stopped
