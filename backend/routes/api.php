@@ -72,7 +72,7 @@ Route::middleware('auth:sanctum')->group(function() {
     |--------------------------------------------------------------------------
     */
     // POST /api/post : Permet de créer un post
-    Route::post('/post', [PostController::class, 'createPost']);
+    Route::post('/post/{category}', [PostController::class, 'createPost']);
     // DELETE /api/post/{post} : Permet de supprimer un post
     Route::delete('/post/{post}', [PostController::class, 'deletePost'])->middleware('can:delete,post');
     // GET /api/post/{post} : Permet de récupérer un post grâce son id

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Category;
 use App\Http\Controllers\UserController;
 
 class PostController extends Controller
@@ -16,14 +17,14 @@ class PostController extends Controller
         $this->user = new UserController;
     }
 
-    public function createPost(Request $request)
+    public function createPost(Request $request, Category $category)
     {
         $data = $request->validate([
             'content' => 'string|required',
-            'id_category' => 'string|required|exists:categories,id'
         ]);
 
         $data['id_user'] = $this->user->getUserUUID();
+        $data['id_category'] = $category->id;
 
         $post = new Post();
         $post->fill($data);
