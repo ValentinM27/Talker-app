@@ -13,8 +13,6 @@ services:
         - db
       networks:
         - talkerApp
-      environment:
-        CHOKIDAR_USEPOLLING: true
     frontend:
       build:
         context: ./frontend
@@ -28,8 +26,6 @@ services:
         - backend
       networks:
         - talkerApp
-      environment:
-        CHOKIDAR_USEPOLLING: true
     db:
       image: arm64v8/mysql:oracle
       restart: unless-stopped
